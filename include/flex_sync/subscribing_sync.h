@@ -22,7 +22,7 @@ namespace flex_sync {
           S *sync) :
       topic_(topic),
       sync_(sync) {
-      sub_ = nh.subscribe(topic, qs, &Topic::callback, this);
+      sub_ = nh.subscribe(topic, qs, &Topic::callback, this, ros::TransportHints().tcpNoDelay());
     }
     void callback(TConstPtr const &msg) {
       sync_->process(topic_, msg);

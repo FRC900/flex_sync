@@ -29,7 +29,7 @@ namespace flex_sync {
                 unsigned int qs, const std::shared_ptr<SyncT> &sync) :
         topic_(topic),
         sync_(sync) {
-        sub_ = nh.subscribe(topic, qs, &LiveTopic::callback, this);
+        sub_ = nh.subscribe(topic, qs, &LiveTopic::callback, this, ros::TransportHints().tcpNoDelay());
       }
       void callback(TConstPtr const &msg) {
         sync_->process(topic_, msg);
